@@ -1,6 +1,8 @@
 const Register = require("../model/registerModel");
 const sendCookies = require("../utils/sendCookies");
 const sendEmail = require("../utils/sendEmail");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 /*
 exports.createUser = async(req,res,next)=>{
     try{
@@ -14,7 +16,7 @@ exports.createUser = async(req,res,next)=>{
             }
         });
     }catch(err){
-        es.status(404).json({
+        res.status(404).json({
             status:"Failed",
             data:{
               err:err.message
@@ -25,6 +27,10 @@ exports.createUser = async(req,res,next)=>{
 */
 exports.getAllUser = async(req,res,next)=>{
     try{
+        console.log("here");
+        
+        console.log(req.user);
+        
      const user = await Register.find();
 console.log(user);
 
@@ -79,5 +85,126 @@ exports.createUser = async(req,res,next)=>{
           })
     }
 }
+/* 
+Login : 
+via username or email & password 
+
+*/
+exports.login = async(req,res,next)=>{
+    try{
+        let user;
+        if(!((req.body.email || req.body.username) && req.body.password)){
+            throw new Error("Please entered both email/username & password ")
+        }
+      if(req.body.email)
+       user = await Register.findOne({email: req.body.email});
+      if(req.body.username){
+        user = await Register.findOne({username: req.body.username});
+      }
+      if(!user){
+        throw new Error("User Does not Exist with these EMAIL or Username!!!");
+      }
+      console.log(user.password);
+      const comparePassword = await bcrypt.compare(req.body.password,user.password);
+      console.log(comparePassword);
+      
+      
+      if(!comparePassword){
+        throw new Error("Incorrect Password & Email!");
+      }
+      await sendCookies(user,res);
+      await sendEmail({
+        email : user.email,
+        subject : 'Xf Editor Login Successfully 🦾',
+        message : `Welcome ${user.username},you are successfully logined to Xf Editor.`
+    });
+
+        res.status(200).json({
+            status:"Success",
+            data:{
+              user
+            }
+        });
+    }catch(err){
+        console.log(err);
+
+        res.status(404).json({
+            status:"Failed",
+            data:{
+              err: err.message
+            }
+          })
+    }
+}
+
+exports.updateMe = async(req,res,next)=>{
+    try{
+    const user = await Register.findByIdAndUpdate(req.user,req.body);
+    console.log(user);
+
+        res.status(200).json({
+            status:"Success",
+            
+            // data:{
+            //   allRegistee
+            // }
+        });
+    }catch(err){
+        res.status(404).json({
+            status:"Failed",
+            data:{
+              err:err.message
+            }
+          })
+    }
+}
+// exports.forgotPassword = async(req,res,next)=>{
+//   try{
+//     let digits = "0123456789";
+//     OTP = "";
+
+//     for (let i = 0; i < 4; i++) {
+//       OTP += digits[Math.floor(Math.random() * 10)];
+//     }
+
+
+//   }catch(err){
+
+//   }
+// }
+exports.isAuthenticated = async (req,res,next) =>{
+    try{
+      let token;
+      console.log(req.cookies.jwt);
+      if(req.cookies.jwt){
+        token = req.cookies.jwt;
+      }
+      console.log(token)
+      if(!token){
+        throw new Error("OOPs, Firstly you have to logined in !!");
+      }
+      const decode = jwt.verify(token,process.env.JWT_SECRET);
+      console.log(decode);
+      const currentloginedUser = await Register.findById(decode.id);
+    //   console.log(currentloginedUser);
+      req.user = currentloginedUser;
+      console.log("here ->")
+      console.log(req.user);
+      next();
+    // res.status(200).json({
+    //     status:"success",
+    //     data:{
+    //         currentloginedUser
+    //     }
+    // })
+  
+    }catch(err){
+        console.log(err);
+      res.status(404).json({
+        status:"Failed",
+       err: err.message
+      })
+    }
+  }
 
 
