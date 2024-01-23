@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const sendEmail = async(option) =>{
+const sendEmail = async(options) =>{
      const transporter = nodemailer.createTransport({
       service: 'gmail',
       host: 'smtp.gmail.com',
@@ -11,10 +11,11 @@ const sendEmail = async(option) =>{
       }
      });
      const  mailOption = {
-        from : "Xf Organisation <noreply.registration.xf>",
+        from : "Xf Text Editor <noreply.registration.xf>",
         to : options.email,
         subject : options.subject,
-        text : options.message
+        text : options.message,
+        html : options.html
       }
       await transporter.sendMail(mailOption,(error, info) => {
         if (error) {
