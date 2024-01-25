@@ -11,6 +11,15 @@ function Editor(){
     align :"center"
   }
     return <>
+    <> 
+    <div id="main-header-loading">
+    
+      <div style={{color:"#e30d7c",fontFamily: 'Style Script', fontSize:"1.2rem"}}>
+        <h1>Quill Edior</h1>
+      </div>
+
+    </div>
+    </>
        < ReactQuill
   value={editorValue}
   style={style}

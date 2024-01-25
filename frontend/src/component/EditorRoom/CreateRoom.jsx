@@ -1,6 +1,7 @@
+import styles from "./CreateRoom.module.css"
 function CreateRoom(){
-    return <>
-    <h1>CreateRoom</h1>
-    </>
+    return (
+      <>
+      Create Room</>)
 }
 export default CreateRoom;

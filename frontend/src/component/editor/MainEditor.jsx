@@ -4,6 +4,12 @@ import { useState } from 'react';
 function MainEditor() {
   const [value,setValue] = useState("");
   return (
+    <>
+     
+    <div style={{color:"#e30d7c",fontFamily: 'Style Script', fontSize:"1rem",textAlign:"center",letterSpacing:"2.5px"}}>
+      <h1>Tinymce Editor</h1>
+    
+  </div>
     <Editor
       apiKey='z95x4745zyhuuluyou4zpfso6oxljpsxnlv0wnz1b2gzjrxt'
       init={{
@@ -22,6 +28,7 @@ function MainEditor() {
       onChange={(e)=>setValue(e.target.value)}
      
     />
+     </>
   );
 }
 export default MainEditor;

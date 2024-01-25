@@ -19,14 +19,16 @@ const router = createBrowserRouter([
   errorElement :<NotFound />,
   children:[
   { path: '/', element: <HomePage /> },
-  { path:'/tinymce-editor',element : <MainEditor />},
-  { path:'/quill-editor',element : <Editor/>},
   
   { path: '/invite' ,element: <Invite />},
   { path: '/create-room' ,element: <CreateRoom />},  
   // {path: '*' ,element: <NotFound />}
 ]
 },
+// { path: '/home', element: <HomePage /> },
+{ path:'/tinymce-editor',element : <MainEditor />},
+  { path:'/quill-editor',element : <Editor/>},
+  
   { path: '/login' ,element: <Login />},
   { path: '/register' ,element: <Register />},
   { path: '/forgot-password' ,element: <ForgotPassword />},

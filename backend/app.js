@@ -3,11 +3,20 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const registerRouter = require("./router/registerRoute");
-
+const cors = require('cors');
+app.use(cors({
+    "origin": "http://localhost:7000/",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials:true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api/v1',registerRouter);
+app.get("/message", (req, res) => {
+    res.json({ message: "Hello from server!" });
+  });
+
+// app.use('/api/v1',registerRouter);
 app.get('/',(req,res)=>{
     res.send("Heellooo!!!!");
 })
