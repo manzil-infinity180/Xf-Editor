@@ -1,5 +1,6 @@
 // import {Editor } from "./component/Editor";
 // import {BrowserRouter} from "react-router-dom"
+import { QueryClientProvider } from "@tanstack/react-query"
 import  Editor from "./component/editor/Editor";
 import HomePage from "./component/HomePage";
 import  MainEditor from "./component/editor/MainEditor";
@@ -11,6 +12,7 @@ import Register from "./component/auth/Register";
 import Invite from "./component/EditorRoom/Invite";
 import CreateRoom from "./component/EditorRoom/CreateRoom";
 import RootLayout from "./component/RootLayout";
+import { queryClient } from "./utils/server";
 
 const router = createBrowserRouter([
 {
@@ -41,7 +43,9 @@ function App() {
       {/* <Editor />
        */}
        {/* <MainEditor /> */}
+       <QueryClientProvider client={queryClient}>
        <RouterProvider router={router} />
+       </QueryClientProvider>
     </>
   )
 }

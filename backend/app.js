@@ -5,8 +5,8 @@ const cookieParser = require("cookie-parser");
 const registerRouter = require("./router/registerRoute");
 const cors = require('cors');
 app.use(cors({
-    "origin": "http://localhost:7000/",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: ["http://localhost:5173"],
+  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
   credentials:true
 }));
 app.use(express.json());
@@ -16,7 +16,7 @@ app.get("/message", (req, res) => {
     res.json({ message: "Hello from server!" });
   });
 
-// app.use('/api/v1',registerRouter);
+app.use('/api/v1',registerRouter);
 app.get('/',(req,res)=>{
     res.send("Heellooo!!!!");
 })

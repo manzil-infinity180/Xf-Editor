@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 const meetupImg = "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?q=80&w=2971&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
  function HomePage(){
     const [editor,setEditor] = useState(false);
+    const [value,setValue] = useState([]);
+    useEffect(()=>{
+      async function fetchData(){
+
+        const res = await fetch("http://localhost:7007/message");
+        const data = await res.json();
+        setValue(data);
+        console.log(data)
+      }
+      fetchData();
+    },[]);
     return <>
     <section
       className="content-section"
@@ -31,6 +42,9 @@ const meetupImg = "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?
         </Link>
       </p>}
     </section>
+    <h1>
+      {value.message}
+    </h1>
     </>
 }
 export default HomePage;
