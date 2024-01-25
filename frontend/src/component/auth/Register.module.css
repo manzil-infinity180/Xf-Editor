@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Style+Script&family=Ubuntu:wght@300;500&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap'); */
+
 .form{
     border: solid 1px black;
     padding: 0 20px;
@@ -11,7 +11,7 @@
     margin: 50px 100px;
     z-index: 100; 
     width: 500px;
-    height: 600px;
+    height: 650px;
     top:50%;
     left: 50%;
 }
@@ -89,7 +89,6 @@
     /* padding: 10px 15px 0; */
     background-color: transparent;
     border: solid 1px black;
-    font-family: 'Roboto';
 
 }
 .signUp:hover{

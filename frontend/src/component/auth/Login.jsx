@@ -14,8 +14,8 @@ function Login(){
     <h1 className={styles.loginTxt}>Login</h1>
         <div className={styles.container}>
             <div className={styles.containerChild}>
-        <label className={styles.label} htmlFor="email"><b>Email</b> </label>
-        <input className={styles.input} type="text" id="email" placeholder="Enter your Email-id" name="email" />
+        <label className={styles.label} htmlFor="email"><b>Email / Username</b> </label>
+        <input className={styles.input} type="text" id="email" placeholder="Enter your Email or Username" name="email" />
         </div>
         <div className={styles.containerChild}>
        <label className={styles.label} htmlFor="password"><b>Password</b> </label>
@@ -26,7 +26,7 @@ function Login(){
 
         </div>
         <div>
-        <button className={styles.loginBtn} type="submit">Login</button>
+        <button className={styles.loginBtn} type="submit" style={{fontSize:"1.1rem"}}>Login</button>
         <Link to="/forgot-password" style={{textDecoration:"none"}}>Forgot Password ?</Link>
         <div className={styles.signUp}>
        <p>Don&apos;t have an account? <Link to="/register" style={{textDecoration:"none"}}><b>Sign up</b></Link></p>
