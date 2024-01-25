@@ -18,18 +18,18 @@ const router = createBrowserRouter([
   element:<RootLayout />,
   errorElement :<NotFound />,
   children:[
-  {  path: '/', element: <HomePage /> },
+  { path: '/', element: <HomePage /> },
   { path:'/tinymce-editor',element : <MainEditor />},
-  {path:'/quill-editor',element : <Editor/>},
+  { path:'/quill-editor',element : <Editor/>},
   
-  {path: '/invite' ,element: <Invite />},
-  {path: '/create-room' ,element: <CreateRoom />},  
+  { path: '/invite' ,element: <Invite />},
+  { path: '/create-room' ,element: <CreateRoom />},  
   // {path: '*' ,element: <NotFound />}
 ]
 },
-  {index: true,path: '/login' ,element: <Login />},
-  {path: '/register' ,element: <Register />},
-  {path: '/forgot-password' ,element: <ForgotPassword />},
+  { path: '/login' ,element: <Login />},
+  { path: '/register' ,element: <Register />},
+  { path: '/forgot-password' ,element: <ForgotPassword />},
 
 ]);
 function App() {

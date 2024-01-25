@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Style+Script&family=Ubuntu:wght@300;500&display=swap');
+
+.form{
+    border: solid 1px black;
+    padding: 0 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content: left;
+    text-align: center;
+    margin: 100px 100px;
+    z-index: 100; 
+    width: 500px;
+    height: 600px;
+    top:50%;
+    left: 50%;
+}
+.loginPage{
+    width: 100%;
+    height: 100%;
+    background-image: url(htps://images.unsplash.com/photo-1628258334105-2a0b3d6efee1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+}
+
+.loginTxt{
+    font-family: 'Style Script', cursive;
+    font-size: 3rem;
+    margin: 15px 2px 0 10px;
+   letter-spacing: 1.04rem;
+}
+.container{
+    z-index: 1px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align: center;
+    margin-top: 50px;
+    /* width: 500px;
+    height:500px; */
+    /* opacity: 0; */
+    color: black;
+    background-color: transparent;
+    border: black;
+    background-image: url("htps://images.unsplash.com/photo-1628258334105-2a0b3d6efee1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+}
+.label{
+    /* 'Style Script', cursive; */
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 1.5mm;
+}
+.containerChild{
+    /* display: flex; */
+    flex-direction: column;
+    /* margin: 10px 10px; */
+    font-size: 1.2rem;
+    
+
+}
+.imageDiv{
+    width: 100%;
+    height: 100%;
+}
+.input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.loginBtn{
+    background-color: #04AA6D;
+   color: white;
+   border: none;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 15px 0px;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 12px;
+
+}
+.loginBtn:hover {
+    opacity: 0.6;
+  }
+.signUp{
+
+    margin: 30px 0 0;
+    /* padding: 10px 15px 0; */
+    background-color: transparent;
+    border: solid 1px black;
+
+}
