@@ -1,58 +1,62 @@
-import { useEffect, useState } from "react";
-import {useMutation} from '@tanstack/react-query';
+import { useState } from "react";
+import toast from 'react-hot-toast';
+// import {useMutation} from '@tanstack/react-query';
 import styles from "./Register.module.css"
-import createNewEvent, { queryClient } from "../../utils/server"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import axios from "axios";
 function Register(){
-    // const [eventData,setEventData]= useState([]);
-    const navigate = useNavigate();
-  const {mutate,isPending,isError,error}=useMutation({
-    mutationFn: createNewEvent,
-    // onSuccess we will navigate 
-    // we can do in a manner that we navigate to /events on submit but in that case the 
-    // problem is that if any error happen we can not handle this as we directly navigate to /events page
-      
-    onSuccess: ()=>{
-
-      navigate('/');
-      // Invalidate one or more queries so allow that to tell the  react query the data is 
-      // outdated we have to refetch the data 
-    //   queryClient.invalidateQueries({queryKey : []})
-    }
-  })
-  function handleSubmit(formData) {
-    // e.preventDefault();
-    console.log(formData);
-    mutate({event : formData});
-  
+  const navigate = useNavigate();
+  const [post , setPost]= useState({
+    name:'',
+    email:'',
+    username:'',
+    password:''
+  });
+  const handleInput = (e)=>{
+    setPost({
+      ...post,
+      [e.target.name]:e.target.value
+    })
   }
-    // useEffect(()=>{
-    //     async function fetchData(){
-    //         let url = 'http://localhost:7007/register';
-    //      const response = await fetch(url,{
-    //   method : "POST",
-    //   body : JSON.stringify(eventData),
-    //   headers : {
-    //     'Content-type':"application/json"
-    //   },
-    //   credentials: true
-    // });
-    // if (!response.ok) {
-    //     const error = new Error('An error occurred while fetching the events');
-    //     error.code = response.status;
-    //     error.info = await response.json();
-    //     throw error;
-    //   }
-    // const data = await response.json();
-    // console.log(data);
-    //     }
-    // },[eventData]);
-    // function handleSubmit(formData,e){
-    //   e.preventDefault();
-    //     console.log(formData);
-    //     eventData(formData);
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    
+    try{
+      let url = 'http://localhost:7007/api/v1/register';
+  const response = await fetch(url,{
+    method : "post",
+    body: JSON.stringify({name: post.name,email:post.email,username:post.username,password:post.password}),
+    headers : {
+      'Content-type':'application/json'
+    }
+  });
+  const {data} = await response.json();
+  console.log(data);
+  // const {name} = data;
+  // console.log(name)
+  
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the events');
+    toast.error('Account already existed');
+    // toast.error(data.err);
+    error.code = response.status;
+    error.info = data
+    throw error;
+  }else{
+    toast.success(`Welcome ${data.user.name}`);
 
-    // } 
+    navigate('/');
+  }
+
+    }catch(err){
+      console.log(err);
+    }
+   
+
+  }
+   
+
+   
     return <>
     <div>
 
@@ -61,19 +65,30 @@ function Register(){
         <div className={styles.container}>
         <div className={styles.containerChild}>
         <label className={styles.label} htmlFor="name"><b>Name</b> </label>
-        <input className={styles.input} type="text" id="name" placeholder="Enter your Name" name="name" />
+        <input className={styles.input} type="text" id="name" placeholder="Enter your Name" 
+        name="name" 
+         onChange={handleInput}
+        />
         </div>
         <div className={styles.containerChild}>
         <label className={styles.label} htmlFor="email"><b>Email</b> </label>
-        <input className={styles.input} type="email" id="email" placeholder="Enter your Email-id" name="email" />
+        <input className={styles.input} type="email" id="email" placeholder="Enter your Email-id" name="email"
+          onChange={handleInput}
+          />
         </div>
         <div className={styles.containerChild}>
         <label className={styles.label} htmlFor="username"><b>Username</b> </label>
-        <input className={styles.input} type="text" id="username" placeholder="Enter your Username" name="username" />
+        <input className={styles.input} type="text" id="username" placeholder="Enter your Username" 
+        name="username" 
+         onChange={handleInput}
+        />
         </div>
         <div className={styles.containerChild}>
        <label className={styles.label} htmlFor="password"><b>Password</b> </label>
-        <input className={styles.input} type="password" id="password" placeholder="Enter your Password" name="password" />
+        <input className={styles.input} type="password" id="password" placeholder="Enter your Password"
+         name="password"
+          onChange={handleInput}
+          />
         </div>
 
         <div>

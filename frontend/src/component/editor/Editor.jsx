@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
-
+// import {io} from 'socket.io-client'
 
 function Editor(){
     const [editorValue,setEditorValue] = useState("");
@@ -10,6 +10,19 @@ function Editor(){
     margin:"50px 150px",
     align :"center"
   }
+//   const [time, setTime] = useState('fetching')  
+//   useEffect(()=>{
+//     const socket = io('http://localhost:7007')
+//     socket.on('connect', ()=>console.log(socket.id))
+//     socket.on('connect_error', ()=>{
+//       setTimeout(()=>socket.connect(),5000)
+//     })
+//    socket.on('time', (data)=>{
+//     console.log("connected"+data);
+//     setTime(data)})
+//    socket.on('disconnect',()=>setTime('server disconnected'))
+ 
+//  },[])
     return <>
     <> 
     <div id="main-header-loading">
@@ -47,7 +60,6 @@ function Editor(){
     ]
   }}
   theme="snow" />
-
     </>
 }
 export default Editor;

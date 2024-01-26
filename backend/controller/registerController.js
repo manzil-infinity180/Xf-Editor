@@ -158,6 +158,27 @@ exports.updateMe = async(req,res,next)=>{
           })
     }
 }
+exports.myself = async(req,res,next)=>{
+  try{
+  const user = await Register.findById(req.user);
+  console.log(user);
+
+      res.status(200).json({
+          status:"Success",
+          data:{
+            user
+          }
+          
+      });
+  }catch(err){
+      res.status(404).json({
+          status:"Failed",
+          data:{
+            err:err.message
+          }
+        })
+  }
+}
 // exports.forgotPassword = async(req,res,next)=>{
 //   try{
 //     let digits = "0123456789";

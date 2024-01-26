@@ -7,7 +7,8 @@ const sendCookies = async (user,res)=>{
     await res.cookie('jwt',token,{
         expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
         httpOnly: true,
-        secure : false
+        sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "Development" ? false : true,
       });
 }
 module.exports = sendCookies;

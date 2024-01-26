@@ -3,11 +3,12 @@ const router = express.Router();
 const registerController = require("../controller/registerController");
 
 router.post('/register',registerController.createUser);
-router.get('/login',registerController.login);
+router.post('/login',registerController.login);
+router.get('/',registerController.getAllUser);
 // router.get('/forgot-password',registerController.forgotPassword)
 // only authenticated user can do this 
 router.use(registerController.isAuthenticated);
-router.get('/',registerController.getAllUser);
+router.get('/profile',registerController.myself);
 router.patch('/update',registerController.updateMe);
 
 module.exports = router;

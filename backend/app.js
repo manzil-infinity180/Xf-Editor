@@ -11,7 +11,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(bodyParser.json());
 app.get("/message", (req, res) => {
     res.json({ message: "Hello from server!" });
   });

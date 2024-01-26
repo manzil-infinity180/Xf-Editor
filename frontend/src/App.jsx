@@ -13,7 +13,8 @@ import Invite from "./component/EditorRoom/Invite";
 import CreateRoom from "./component/EditorRoom/CreateRoom";
 import RootLayout from "./component/RootLayout";
 import { queryClient } from "./utils/server";
-
+import {Toaster} from "react-hot-toast";
+// import {u}
 const router = createBrowserRouter([
 {
   path:'/', 
@@ -45,6 +46,38 @@ function App() {
        {/* <MainEditor /> */}
        <QueryClientProvider client={queryClient}>
        <RouterProvider router={router} />
+       <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          success: {
+            style: {
+              backgroundColor: "white",
+              color: "green",
+              border: "1px solid green",
+              padding: "15px",
+              marginRight: "20px",
+            },
+            iconTheme: {
+              primary: "green",
+              secondary: "white",
+            },
+          },
+          error: {
+            style: {
+              backgroundColor: "white",
+              color: "red",
+              border: "1px solid red",
+              padding: "15px",
+              marginRight: "20px",
+            },
+            iconTheme: {
+              primary: "red",
+              secondary: "white",
+            },
+          },
+        }}
+      />
        </QueryClientProvider>
     </>
   )
