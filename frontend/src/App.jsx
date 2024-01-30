@@ -14,6 +14,7 @@ import CreateRoom from "./component/EditorRoom/CreateRoom";
 import RootLayout from "./component/RootLayout";
 import { queryClient } from "./utils/server";
 import {Toaster} from "react-hot-toast";
+import { AuthProvider } from "./utils/useAuth";
 // import {u}
 const router = createBrowserRouter([
 {
@@ -44,7 +45,8 @@ function App() {
       {/* <Editor />
        */}
        {/* <MainEditor /> */}
-       <QueryClientProvider client={queryClient}>
+       
+        <AuthProvider>
        <RouterProvider router={router} />
        <Toaster
         position="top-right"
@@ -78,7 +80,8 @@ function App() {
           },
         }}
       />
-       </QueryClientProvider>
+      </AuthProvider>
+       
     </>
   )
 }

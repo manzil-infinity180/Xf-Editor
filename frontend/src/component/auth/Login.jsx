@@ -5,10 +5,11 @@ password
 import styles from "./Login.module.css"
 import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { useAuth } from "../../utils/useAuth";
 const background = "https://images.unsplash.com/photo-1536273513130-d8477e6e4389?q=80&w=2792&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 function Login(){
     const navigate = useNavigate();
+    const {LoginFetch} = useAuth();
   const [post , setPost]= useState({
     email:'',
     password:''
@@ -20,39 +21,12 @@ function Login(){
       [e.target.name]:e.target.value
     })
   }
+
   const handleSubmit = async (e)=>{
+
     e.preventDefault();
     
-    try{
-      let url = 'http://localhost:7007/api/v1/login';
-  const response = await fetch(url,{
-    method : "post",
-    body: JSON.stringify({email:post.email,password:post.password}),
-    headers : {
-      'Content-type':'application/json'
-    }
-  });
-  const {data} = await response.json();
-  console.log(data.user);
-  // const {name} = data;
-  // console.log(name)
-  
-  if (!response.ok) {
-    const error = new Error('An error occurred while fetching the events');
-    toast.error('Enter correct email and Password')
-    error.code = response.status;
-    error.info = data
-    throw error;
-  }else{
-    toast.success(`Welcome ${data.user.name}`);
-    navigate('/');
-  }
-
-    }catch(err){
-      console.log(err);
-    }
-   
-
+    LoginFetch(post,navigate);
   }
     return <>
     <div>
