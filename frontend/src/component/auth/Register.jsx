@@ -3,9 +3,11 @@ import toast from 'react-hot-toast';
 // import {useMutation} from '@tanstack/react-query';
 import styles from "./Register.module.css"
 import { Link,useNavigate } from 'react-router-dom';
-import axios from "axios";
+// import axios from "axios";
+import { useAuth } from "../../utils/useAuth";
 function Register(){
   const navigate = useNavigate();
+  const {RegisterFetch} = useAuth();
   const [post , setPost]= useState({
     name:'',
     email:'',
@@ -20,43 +22,11 @@ function Register(){
   }
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    RegisterFetch(post,navigate);
     
-    try{
-      let url = 'http://localhost:7007/api/v1/register';
-  const response = await fetch(url,{
-    method : "post",
-    body: JSON.stringify({name: post.name,email:post.email,username:post.username,password:post.password}),
-    headers : {
-      'Content-type':'application/json'
-    }
-  });
-  const {data} = await response.json();
-  console.log(data);
-  // const {name} = data;
-  // console.log(name)
-  
-  if (!response.ok) {
-    const error = new Error('An error occurred while fetching the events');
-    toast.error('Account already existed');
-    // toast.error(data.err);
-    error.code = response.status;
-    error.info = data
-    throw error;
-  }else{
-    toast.success(`Welcome ${data.user.name}`);
-
-    navigate('/');
-  }
-
-    }catch(err){
-      console.log(err);
-    }
-   
-
   }
    
 
-   
     return <>
     <div>
 

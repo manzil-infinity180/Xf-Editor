@@ -113,6 +113,7 @@ exports.login = async(req,res,next)=>{
         throw new Error("Incorrect Password & Email!");
       }
       await sendCookies(user,res);
+      console.log(req.cookies);
       await sendEmail({
         email : user.email,
         subject : 'Xf Editor Login Successfully 🦾',

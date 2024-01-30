@@ -9,6 +9,7 @@ import NotFound from "./component/NotFound";
 import Login from "./component/auth/Login";
 import ForgotPassword from "./component/auth/ForgotPassword";
 import Register from "./component/auth/Register";
+import Myprofile from "./component/auth/Myprofile";
 import Invite from "./component/EditorRoom/Invite";
 import CreateRoom from "./component/EditorRoom/CreateRoom";
 import RootLayout from "./component/RootLayout";
@@ -36,6 +37,9 @@ const router = createBrowserRouter([
   { path: '/login' ,element: <Login />},
   { path: '/register' ,element: <Register />},
   { path: '/forgot-password' ,element: <ForgotPassword />},
+  {
+    path:'/profile', element:<Myprofile />
+  }
 
 ]);
 function App() {
