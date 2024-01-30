@@ -3,7 +3,8 @@ const AuthContext = createContext();
 import toast from "react-hot-toast";
 function AuthProvider({children}){
     // const navigate = useNavigate();
-    
+      const [loading,setLoading] = useState(false);
+      const [profile,setProfile] = useState({});
       async function LoginFetch(post,navigate){
         try{
             console.log({"data":post});
@@ -70,6 +71,27 @@ function AuthProvider({children}){
             console.log(err);
           }
       }
+      async function MyselfFetch(){
+        try{
+            let url = 'http://localhost:7007/api/v1/profile';
+            const res = await fetch(url,{
+                credentials:"include"
+            });
+            const {data} = await res.json();
+            setLoading(true);
+        //    const {name,email,username} = data.user;
+        //    console.log(data);
+           setProfile(data.user);
+        //    console.log({profile})
+        //    console.log({;
+        //     name,
+        //     email,
+        //     username
+        //    })
+        }catch(err){
+            console.log(err);
+        }
+    }
 
 
 
@@ -77,7 +99,10 @@ function AuthProvider({children}){
     return (
         <AuthContext.Provider value={{
             LoginFetch,
-            RegisterFetch
+            RegisterFetch,
+            MyselfFetch,
+            loading,
+            profile
         }}>
             {children}
         </AuthContext.Provider>

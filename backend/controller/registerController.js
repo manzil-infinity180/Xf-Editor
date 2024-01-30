@@ -229,4 +229,47 @@ exports.isAuthenticated = async (req,res,next) =>{
     }
   }
 
+  /*
+  when user click on " forgotPassword " the reset url has been send to user email id 
+  then he click on that and 
+  */
+ exports.forgotPassword = async (req,res,next) => {
+  try{
+    if(!req.body.email){
+      throw new Error("Please enter email only");
+    }
+    const user = await Register.findOne({email:req.body.email});
+    const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
+    console.log(token);
+    const url = `http://localhost:5173/reset-password/`+token;
+    await sendEmail({
+      email : user.email,
+      subject : 'Xf reset Password link',
+      message : `Welcome ${user.username},here is your ${url}`
+  });
+
+    const yourid = jwt.verify(token,process.env.JWT_SECRET);
+    console.log({"id":user._id,
+  "yourId":yourid});
+
+    
+  
+        res.status(200).json({
+            status:"Success",
+            data:{
+              user
+            }
+            
+        });
+    }catch(err){
+      console.log(err);
+        res.status(404).json({
+            status:"Failed",
+            data:{
+              err:err.message
+            }
+          })
+    }
+ }
+
 

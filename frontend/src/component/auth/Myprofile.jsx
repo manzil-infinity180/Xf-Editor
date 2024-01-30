@@ -1,31 +1,11 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../utils/useAuth";
 
 function Myprofile(){
-    const [loading,setLoading] = useState(false);
-    const [profile,setProfile] = useState({});
+    // const [loading,setLoading] = useState(false);
+    // const [profile,setProfile] = useState({});
+    const {profile,loading,MyselfFetch} = useAuth();
     useEffect(function(){
-        async function MyselfFetch(){
-            try{
-                let url = 'http://localhost:7007/api/v1/profile';
-                const res = await fetch(url,{
-                    credentials:"include"
-                });
-                const {data} = await res.json();
-                setLoading(true);
-            //    const {name,email,username} = data.user;
-            //    console.log(data);
-               setProfile(data.user);
-            //    console.log({profile})
-            //    console.log({;
-            //     name,
-            //     email,
-            //     username
-            //    })
-            }catch(err){
-                console.log(err);
-            }
-        }
-
         MyselfFetch();
     },[])
    
@@ -44,7 +24,7 @@ function Myprofile(){
                      <h3>Name: {profile.name}</h3>
                      <h3>Username: {profile.username}</h3>
                      <h3>EmailId: {profile.email}</h3>
-
+                     
                         </div>
                 )
             }
