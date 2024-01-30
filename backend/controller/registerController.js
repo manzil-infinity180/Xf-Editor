@@ -239,18 +239,18 @@ exports.isAuthenticated = async (req,res,next) =>{
       throw new Error("Please enter email only");
     }
     const user = await Register.findOne({email:req.body.email});
-    const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
-    console.log(token);
-    const url = `http://localhost:5173/reset-password/`+token;
+    // const token = jwt.sign({token:user._id},process.env.JWT_SECRET);
+    // console.log(token);
+    const url = `http://localhost:5173/reset-password/`+user._id;
     await sendEmail({
       email : user.email,
       subject : 'Xf reset Password link',
       message : `Welcome ${user.username},here is your ${url}`
   });
 
-    const yourid = jwt.verify(token,process.env.JWT_SECRET);
-    console.log({"id":user._id,
-  "yourId":yourid});
+  //   const yourid = jwt.verify(token,process.env.JWT_SECRET);
+  //   console.log({"id":user._id,
+  // "yourId":yourid});
 
     
   
@@ -272,4 +272,42 @@ exports.isAuthenticated = async (req,res,next) =>{
     }
  }
 
-
+exports.resetPassword = async (req,res,next)=>{
+  try{
+    // const user = await Register.findById(req.params.token);
+    console.log(req.params);
+    if(!req.params.token){
+      throw new Error("Please check your email id and copy the link and paste in browser")
+    }
+    const token = req.params.token
+    // const id = jwt.verify(token,process.env.JWT_SECRET);
+    if(req.body.password !== req.body.confirmPassword){
+      throw new Error("Password and confirm password should be same");
+    }
+    // console.log(id);
+    const password = await bcrypt.hash(req.body.password,10); // 10 is salt 
+    const user = await Register.findByIdAndUpdate({_id:token},{password: password});
+    console.log(user);
+    await user.save();
+    console.log(user);
+    await sendEmail({
+      email : user.email,
+      subject : 'Xf Password Changed Successfully',
+      message : `Welcome ${user.username},Thank you for using XF`
+  });
+  
+        res.status(200).json({
+            status:"Success",
+            message:"Your password has been changed"
+            
+        });
+    }catch(err){
+      console.log(err)
+        res.status(404).json({
+            status:"Failed",
+            data:{
+              err:err.message
+            }
+          })
+    }
+}
