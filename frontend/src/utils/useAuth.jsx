@@ -92,6 +92,72 @@ function AuthProvider({children}){
             console.log(err);
         }
     }
+    async function ForgotPasswordFetch(post){
+      try{
+          let url = 'http://localhost:7007/api/v1/forgot-password';
+      const response = await fetch(url,{
+        method : "post",
+        credentials:"include",
+        body: JSON.stringify({email:post}),
+        headers : {
+          'Content-type':'application/json'
+        }
+      });
+      const {data} = await response.json();
+      console.log(data);
+      // const {name} = data;
+      // console.log(name)
+      
+      if (!response.ok) {
+        const error = new Error('An error occurred while fetching the events');
+        toast.error('No user exist with these email id , please register yourself first');
+        // toast.error(data.err);
+        error.code = response.status;
+        error.info = data
+        throw error;
+      }else{
+        toast.success(`Please check your mail and paste the link into the browser`);
+    
+        // navigate('/reset-password');
+      }
+    
+        }catch(err){
+          console.log(err);
+        }
+    }
+    async function ResetPasswordFetch(post,token){
+      try{
+          let url = `http://localhost:7007/api/v1/reset-password/:${token}`;
+      const response = await fetch(url,{
+        method : "patch",
+        credentials:"include",
+        body: JSON.stringify({password: post}),
+        headers : {
+          'Content-type':'application/json'
+        }
+      });
+      const {data} = await response.json();
+      console.log(data);
+      // const {name} = data;
+      // console.log(name)
+      
+      if (!response.ok) {
+        const error = new Error('An error occurred while fetching the events');
+        toast.error('No user exist with these email id , please register yourself first');
+        // toast.error(data.err);
+        error.code = response.status;
+        error.info = data
+        throw error;
+      }else{
+        toast.success(`Welcome ${data.user.name}`);
+    
+        // navigate('/reset-password');
+      }
+    
+        }catch(err){
+          console.log(err);
+        }
+    }
 
 
 
@@ -101,6 +167,8 @@ function AuthProvider({children}){
             LoginFetch,
             RegisterFetch,
             MyselfFetch,
+            ForgotPasswordFetch,
+            ResetPasswordFetch,
             loading,
             profile
         }}>
