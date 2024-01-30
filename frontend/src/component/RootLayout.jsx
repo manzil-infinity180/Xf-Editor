@@ -40,7 +40,7 @@ function RootLayout(){
         <Link to="/register" className="button">
           Register
         </Link>
-        <Link className="button" onClick={handleSubmit}>
+        <Link to="/profile" className="button" >
         About
         </Link>
       </Header>
