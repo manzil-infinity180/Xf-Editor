@@ -6,7 +6,6 @@ import styles from "./Login.module.css"
 import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react";
 import { useAuth } from "../../utils/useAuth";
-const background = "https://images.unsplash.com/photo-1536273513130-d8477e6e4389?q=80&w=2792&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 function Login(){
     const navigate = useNavigate();
     const {LoginFetch} = useAuth();
@@ -31,7 +30,7 @@ function Login(){
     return <>
     <div>
 
-   <div className={styles.imageDiv} style={{ backgroundImage: `url(${background})` }}>Image</div>
+   
     <form className={styles.form} onSubmit={handleSubmit}>
     <h1 className={styles.loginTxt}>Login</h1>
         <div className={styles.container}>

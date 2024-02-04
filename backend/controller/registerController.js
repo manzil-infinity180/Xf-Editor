@@ -286,7 +286,7 @@ exports.resetPassword = async (req,res,next)=>{
     }
     // console.log(id);
     const password = await bcrypt.hash(req.body.password,10); // 10 is salt 
-    const user = await Register.findByIdAndUpdate({_id:token},{password: password});
+    const user = await Register.findByIdAndUpdate({_id:token},{password: passwordt  });
     console.log(user);
     await user.save();
     console.log(user);

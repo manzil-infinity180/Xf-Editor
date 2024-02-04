@@ -15,7 +15,8 @@ function AuthProvider({children}){
           credentials:"include",
           headers : {
             'Content-type':'application/json'
-          }
+          },
+        
         });
         const {data} = await response.json();
         console.log(data.user);
